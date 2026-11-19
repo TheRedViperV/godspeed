@@ -7,7 +7,7 @@
 Type a few letters and get every matching file, folder and app on your PC in milliseconds.
 See where your disk space went, clean it up, and get folder sizes right inside File Explorer.
 
-[**Download the latest release**](https://github.com/TheRedViperV/godspeed-releases/releases/latest) · Windows 10/11 · v0.3.4
+[**Download the latest release**](https://github.com/TheRedViperV/godspeed/releases/latest) · Windows 10/11 · v0.3.4
 
 ![Godspeed search results with the preview pane](docs/screenshots/search.png)
 
@@ -177,9 +177,39 @@ Explorer has never shown how big a folder is. Godspeed adds a **Total size** col
 
 ## Install
 
-1. Download `godspeed.exe` or `lordspeed.exe` from the [latest release](https://github.com/TheRedViperV/godspeed-releases/releases/latest).
+1. Download `godspeed.exe` or `lordspeed.exe` from the [latest release](https://github.com/TheRedViperV/godspeed/releases/latest).
 2. Run it. There's no installer. Godspeed asks for admin rights so it can read the file table, and LordSpeed doesn't.
 3. Press **Alt+Space** and start typing.
 
 Settings, history and saved scans are kept in `%LOCALAPPDATA%\Godspeed` (or `%LOCALAPPDATA%\LordSpeed`).
 
+## Build from source
+
+You need [Rust](https://rustup.rs) (stable) on Windows.
+
+```powershell
+cargo build --release --workspace
+```
+
+This builds both editions into `target\release\`: `godspeed.exe` and `lordspeed.exe`.
+
+```
+src/            the whole app (a library): search, index, Space, Explorer column, tray, updates
+src/main.rs     Godspeed launcher
+lordspeed/      LordSpeed launcher (the no-admin edition)
+release.ps1     builds both and publishes a GitHub release
+```
+
+To debug slowness, set `SPEED_TRACE` to a file path and the app writes a timing log there.
+
+### Releasing
+
+```powershell
+./release.ps1 -Version 0.3.5 -Notes "What changed"
+```
+
+This sets the version in both `Cargo.toml` files, builds, writes `latest.txt` (the version, download links and SHA-256 hashes), and publishes the release. Running copies pick it up as a one-click update.
+
+## License
+
+[MIT](LICENSE)

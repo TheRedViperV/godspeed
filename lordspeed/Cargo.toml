@@ -1,0 +1,13 @@
+[package]
+name = "lordspeed"
+version = "0.3.4"
+edition = "2021"
+description = "Instant file search for Windows, no admin rights needed"
+license = "MIT"
+
+# Everything comes from the Godspeed library, so LordSpeed gets every update.
+[dependencies]
+godspeed = { path = ".." }
+
+[build-dependencies]
+winresource = "0.1"
